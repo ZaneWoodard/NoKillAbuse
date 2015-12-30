@@ -1,0 +1,9 @@
+name: NoKillAbuse
+main: com.beastsmc.nokillabuse.NoKillAbuse
+version: 0.1
+commands:
+   safetyoff:
+      description: Ends your PvP cooldown period immediately
+      usage: /safetyoff
+      permission: nokillabuse.safetyoff
+      permission-message: You don't have permission to do that.
