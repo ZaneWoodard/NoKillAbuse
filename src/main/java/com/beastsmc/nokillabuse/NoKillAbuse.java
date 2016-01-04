@@ -12,10 +12,14 @@ public class NoKillAbuse extends JavaPlugin {
 
     private CoolDownHandler cooldowns;
     private PlayerListener listener;
+    private Messager messager;
 
     private List<String> blackListedWorlds;
 
     public void onEnable() {
+        this.messager = new Messager();
+        this.messager.runTaskTimerAsynchronously(this, 20, 20*2);
+
         this.listener = new PlayerListener(this);
         this.getServer().getPluginManager().registerEvents(listener, this);
 
@@ -38,6 +42,10 @@ public class NoKillAbuse extends JavaPlugin {
 
     public List<String> getBlackListedWorlds() {
         return this.blackListedWorlds;
+    }
+
+    public Messager getMessager() {
+        return this.messager;
     }
 
     @Override

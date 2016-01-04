@@ -1,6 +1,5 @@
 package com.beastsmc.nokillabuse;
 
-import com.oracle.jrockit.jfr.EventDefinition;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -23,7 +22,9 @@ public class PlayerListener implements Listener {
         Player victim = event.getEntity();
         Player killer = victim.getKiller();
 
-        if(killer==null || plugin.getBlackListedWorlds().contains(victim.getWorld().getName())) return;
+        if(victim.equals(killer) || killer==null || plugin.getBlackListedWorlds().contains(victim.getWorld().getName())) {
+            return;
+        }
 
         plugin.getCoolDowns().addCooldown(victim.getUniqueId());
         victim.sendMessage(ChatColor.GREEN + "You have died in PvP and been granted temporary protection!");
@@ -41,11 +42,11 @@ public class PlayerListener implements Listener {
             boolean cancelled = false;
             if(plugin.getCoolDowns().isOnCooldown(victim.getUniqueId())) {
                 cancelled = true;
-                victim.sendMessage(ChatColor.GREEN + "You have died in PvP recently and are protected! Use /safetyoff to enable combat!");
+                plugin.getMessager().sendMessage((Player)damager, ChatColor.GREEN + "Player is currently protected by PvP cooldown!");
             }
             if(plugin.getCoolDowns().isOnCooldown(damager.getUniqueId())) {
                 cancelled = true;
-                damager.sendMessage(ChatColor.GREEN + "You have died in PvP recently and are protected! Use /safetyoff to enable combat!");
+                plugin.getMessager().sendMessage((Player)victim, ChatColor.GREEN + "You have died in PvP recently and are protected! Use /safetyoff to enable combat!");
 
             }
             if(cancelled) event.setCancelled(cancelled);
