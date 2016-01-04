@@ -7,7 +7,7 @@ public class CoolDownHandler {
 
 
     private HashMap<UUID, Long> cooldowns;
-    private long cooldownAmt = 600L*1000L;
+    private long cooldownAmt = 60L*10L*1000L;
 
     public CoolDownHandler() {
         cooldowns = new HashMap<>();
@@ -28,7 +28,7 @@ public class CoolDownHandler {
     }
 
     public void addCooldown(UUID player) {
-        cooldowns.put(player, this.cooldownAmt);
+        cooldowns.put(player, this.cooldownAmt+System.currentTimeMillis());
     }
 
     public boolean removeCooldown(UUID player) {
