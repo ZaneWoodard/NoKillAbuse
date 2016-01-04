@@ -25,7 +25,7 @@
     </repositories>
 
     <build>
-        <defaultGoal>clean package install</defaultGoal>
+        <defaultGoal>clean package</defaultGoal>
         <finalName>${project.name}</finalName>
         <sourceDirectory>src/main/java</sourceDirectory>
         <plugins>
